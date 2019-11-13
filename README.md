@@ -4,6 +4,10 @@
 * reinstall the database
 
 ## HOMEWORK
+* For Thu 14 Nov 2019
+  * Abe: Lab: Build Custom Exception Class
+  * Charlene: Lab: Traits
+  * http://collabedit.com/rtsax
 * For Tue 12 Nov 2019
   * Charlene: Lab: Type Hinting
   * http://collabedit.com/wuesq
@@ -24,6 +28,37 @@
   * ALL: Lab: Namespace
 
 ## CLASS NOTES
+* Traits
+  * NOTE: often you will find traits and interfaces are used together
+  * https://github.com/zendframework/zend-eventmanager/blob/master/src/EventManagerAwareTrait.php
+  * https://github.com/zendframework/zend-eventmanager/blob/master/src/EventManagerAwareInterface.php
+* Static
+  * https://github.com/dbierer/classic_php_examples/blob/master/oop/oop_static.php
+  * https://github.com/dbierer/classic_php_examples/blob/master/oop/oop_static_storage_exercise.php
+  * Singleton:
+    * https://en.wikipedia.org/wiki/Singleton_pattern
+    * https://github.com/dbierer/classic_php_examples/blob/master/oop/oop_singleton_getinstance_example.php
+
+* Log Files
+  * For the VM: it's straight Apache, so: `/var/log/apache2/error.log`
+  * For Zend Server: `/usr/local/zend/var/log/php.log`
+* Example of Throwable
+```
+<?php
+$args = ['dsn' => 'xxx', 'user' => 'yyy', 'pwd' => 'zzz'];
+try {
+	$pdo = new PDO($args['dsn'], $args['user'], $args['pwd']);
+	//$pdo = new PDO();
+} catch (Exception $e) {
+	echo get_class($e) . ':' . $e->getMessage();
+} catch (Error $e) {
+	echo get_class($e) . ':' . $e->getMessage();
+} catch (Throwable $e) {
+	echo get_class($e) . ':' . $e->getMessage();
+}
+echo PHP_EOL;
+```
+
 * Creating pull requests on github: https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request
 
 * Running stand-alone PHP webserver:
