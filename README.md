@@ -4,6 +4,10 @@
 * reinstall the database
 
 ## HOMEWORK
+* For Sun 17 Nov 2019
+  * Review the OrderApp
+  * Do all the database labs
+  * http://collabedit.com/5dt6j
 * For Thu 14 Nov 2019
   * Abe: Lab: Build Custom Exception Class
   * Charlene: Lab: Traits
