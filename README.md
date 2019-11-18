@@ -1,9 +1,9 @@
 # PHP-II Class Notes
 
-## TODO
-* reinstall the database
-
 ## HOMEWORK
+* For Tue 19 Nov 2019
+
+  * collabedit.com/gwhf4
 * For Sun 17 Nov 2019
   * Review the OrderApp
   * Do all the database labs
@@ -32,6 +32,18 @@
   * ALL: Lab: Namespace
 
 ## CLASS NOTES
+* Composer:
+  * Composer itself: https://getcomposer.org/
+  * Packages: https://packagist.org/
+* ETag Example: https://github.com/dbierer/classic_php_examples/blob/master/web/etag.php
+* "Official" list HTTP headers: https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14
+  * Example of setting the content type to JSON:
+```
+header('Content-Type: application/json');
+$data = ['status' => 'success', 'value' => 12345];
+echo json_encode($data);
+```
+
 * Traits
   * NOTE: often you will find traits and interfaces are used together
   * https://github.com/zendframework/zend-eventmanager/blob/master/src/EventManagerAwareTrait.php
