@@ -1,9 +1,16 @@
 # PHP-II Class Notes
 
-## HOMEWORK
-* For Tue 19 Nov 2019
+## TODO
+* Find preg_replace_callback_array example converting PHP 5 to PHP 7 syntax
 
-  * collabedit.com/gwhf4
+## HOMEWORK
+* For Thu 21 Nov 2019
+  * Lab: Create Regex for Validating Email Address
+  * collabedit.com/ex6q4
+* For Tue 19 Nov 2019
+  * Abe: Lab: Email
+  * Charlene: Lab: Composer
+  * http://collabedit.com/gwhf4
 * For Sun 17 Nov 2019
   * Review the OrderApp
   * Do all the database labs
@@ -32,6 +39,9 @@
   * ALL: Lab: Namespace
 
 ## CLASS NOTES
+* Regex examples:
+  * https://github.com/dbierer/classic_php_examples/tree/master/regex
+  * https://github.com/dbierer/php7_examples/blob/master/php_7_0/preg_replace_callback_array.php
 * Composer:
   * Composer itself: https://getcomposer.org/
   * Packages: https://packagist.org/
@@ -97,3 +107,39 @@ sudo gedit /etc/php/7.3/cli/php.ini
   * https://github.com/dbierer/classic_php_examples/blob/master/oop/oop_magic_get_set.php
 * Interfaces
   * Example: https://github.com/zendframework/zend-db/blob/master/src/Adapter/AdapterInterface.php
+* Example of searching for contents of an `<a href="xxx">yyy</a>` tag:
+```
+<?php
+$string = [
+	'<a href="http://zend.com/">xxx</a>',
+	"<a href='https://roguewave.com/'>yyy</a>",
+	'<a title="test" href="https://perforce.com/">zzz</a>',
+];
+$pattern = '!<a.*?href=("|\')(.*?)("|\')>(.*?)</a>!';
+foreach ($string as $item) {
+	echo $item . ':';
+	preg_match($pattern, $item, $matches);
+	var_dump($matches);
+	echo PHP_EOL;
+}
+
+```
+* Another example using `^` inside the square brackets
+```
+<?php
+$string = [
+	'12345',
+	'Number 456',
+	'Alpha Only',
+];
+$pattern = '/^[^A-Za-z ]+$/';
+foreach ($string as $item) {
+	echo $item . ':';
+	$result = preg_match($pattern, $item, $matches);
+	echo ($result) ? 'MATCH' : 'NO MATCH';
+	echo PHP_EOL;
+	var_dump($matches);
+	echo PHP_EOL;
+}
+
+```
