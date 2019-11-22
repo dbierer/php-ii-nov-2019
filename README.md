@@ -1,8 +1,5 @@
 # PHP-II Class Notes
 
-## TODO
-* Find preg_replace_callback_array example converting PHP 5 to PHP 7 syntax
-
 ## HOMEWORK
 * For Thu 21 Nov 2019
   * Lab: Create Regex for Validating Email Address
@@ -42,6 +39,13 @@
 * Regex examples:
   * https://github.com/dbierer/classic_php_examples/tree/master/regex
   * https://github.com/dbierer/php7_examples/blob/master/php_7_0/preg_replace_callback_array.php
+  * RFC 5322 for email: https://tools.ietf.org/html/rfc5322
+  * https://www.regextester.com/97668
+  * https://emailregex.com/
+* `preg_replace_callback_array()` example
+  * https://github.com/dbierer/php7cookbook/blob/master/source/chapter01/chap_01_php5_to_php7_code_converter.php
+  * https://github.com/dbierer/php7cookbook/blob/master/source/Application/Parse/Convert.php
+  * https://github.com/dbierer/php7cookbook/blob/master/source/chapter01/chap_01_php5_to_php7_code_converter_test_file.php
 * Composer:
   * Composer itself: https://getcomposer.org/
   * Packages: https://packagist.org/
@@ -142,4 +146,71 @@ foreach ($string as $item) {
 	echo PHP_EOL;
 }
 
+```
+* Example of using the object to get its own JSON + error trapping
+```
+<?php
+class Test
+{
+	public $first = 'Fred';
+	public $last = 'Flintstone';
+	protected $status = 'Caveman';
+	private $address = '123 Granite Lane';
+	private $password = 'password';
+	public $amount = 123.00;
+
+	public function getFullName()
+	{
+		return $this->first . ' ' . $this->last;
+	}
+	public function getSerialized()
+	{
+		return serialize($this);
+	}
+	public function getJson()
+	{
+		ob_start();
+		$result = '';
+		try {
+			$data = get_object_vars($this);
+			$status = 200;
+		} catch (Throwable $t) {
+			$status = 500;
+			$data   = ['error'];
+		}
+		$output = ob_get_contents();
+		error_log(__METHOD__ . ':' . $output);
+		ob_end_clean();
+		return json_encode(['status' => $status, 'data' => $data], JSON_PRETTY_PRINT | JSON_PRESERVE_ZERO_FRACTION);
+	}
+}
+
+$test = new Test();
+echo $test->getFullName();
+echo PHP_EOL;
+
+$json = $test->getJson();
+echo $json;
+$result = json_decode($json);
+echo PHP_EOL;
+var_dump($result);
+
+// Notice the diff using PHP serialize
+$string = $test->getSerialized();
+echo $string;
+$result = unserialize($string);
+echo PHP_EOL;
+var_dump($result);
+echo $result->getFullName();
+
+```
+* Using negative offsets to remove unwanted syntax:
+```
+<?php
+$fields = ['first','last','status','date'];
+$sql = 'SELECT ';
+foreach ($fields as $item) $sql .= $item . ',';
+if ($sql[-1] == ',') $sql = substr($sql, 0, -1);
+$sql .= ' FROM users';
+echo $sql;
 ```
